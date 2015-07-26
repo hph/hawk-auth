@@ -1,0 +1,130 @@
+<!--
+A simple Polymer element to provide log in and sign up forms. With a single tag
+you will get an element containing a log in and sign up form, with material
+design paper elements. See the demo for an example.
+
+Example:
+
+    <hawk-auth></hawk-auth>
+
+@group Hawk Elements
+@element hawk-auth
+@demo demo/index.html
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+
+<dom-module id="hawk-auth">
+
+  <style>
+    paper-material {
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    paper-button {
+      margin: 10px;
+      float: right;
+      clear: both;
+    }
+
+    paper-tab {
+      text-transform: uppercase;
+    }
+
+    paper-tabs.tab::shadow #selectionBar {
+      background-color: rgb(47, 54, 169);
+    }
+
+    paper-tabs.tab paper-tab::shadow #ink {
+      color: rgb(47, 54, 169);
+    }
+
+    label {
+      text-transform: capitalize;
+    }
+  </style>
+
+  <template>
+
+    <paper-material elevation="1">
+
+      <paper-tabs class="tab" selected="{{selected}}">
+        <paper-tab>Log in</paper-tab>
+        <paper-tab>Sign up</paper-tab>
+      </paper-tabs>
+
+      <iron-pages class="tab" selected="{{selected}}">
+        <form is="iron-form" method="post" action="{{loginPath}}">
+          <paper-input-container>
+            <label>{{identifier}}</label>
+            <input is="iron-input" name="{{identifier}}" required autofocus>
+          </paper-input-container>
+          <paper-input-container>
+            <label>Password</label>
+            <input is="iron-input" type="password" name="password" required>
+          </paper-input-container>
+          <content select=".login"></content>
+          <paper-button success raised onclick="submit()">Log in</paper-button>
+        </form>
+
+        <form is="iron-form" method="post" action="{{signupPath}}">
+          <paper-input-container>
+            <label>{{identifier}}</label>
+            <input is="iron-input" name="{{identifier}}" required>
+          </paper-input-container>
+          <paper-input-container>
+            <label>Password</label>
+            <input is="iron-input" type="password" name="{{password}}" required>
+          </paper-input-container>
+          <content select=".signup"></content>
+          <paper-button success raised onclick="submit()">Sign up</paper-button>
+        </form>
+      </iron-pages>
+
+    </paper-material>
+
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+    is: 'hawk-auth',
+    ready: function () {
+      document.querySelector('body').addEventListener('keydown', function (event) {
+        if (event.keyCode === 13) {
+          submit();
+        }
+      });
+    },
+    properties: {
+      selected: {
+        type: Number,
+        value: 0
+      },
+      identifier: {
+        type: String,
+        value: 'username'
+      },
+      loginPath: {
+        type: String,
+        value: '/login'
+      },
+      signupPath: {
+        type: String,
+        value: '/signup'
+      }
+    }
+  });
+
+  function submit () {
+    document.querySelector('form.iron-selected').submit();
+  }
+
+</script>

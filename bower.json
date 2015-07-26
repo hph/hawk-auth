@@ -1,0 +1,29 @@
+{
+  "name": "hawk-auth",
+  "version": "1.0.0",
+  "authors": [
+    "Haukur Páll Hallvarðsson <hph@hph.is>"
+  ],
+  "description": "An element to provide simple authentication and registration forms",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "auth",
+    "login",
+    "signin",
+    "signup",
+    "register"
+  ],
+  "main": "hawk-auth.html",
+  "license": "http://opensource.org/licenses/MIT",
+  "homepage": "https://github.com/hph/hawk-auth",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "paper-button": "PolymerElements/paper-button#~1.0.3",
+    "paper-input": "PolymerElements/paper-input#~1.0.6",
+    "paper-material": "PolymerElements/paper-material#~1.0.1",
+    "paper-tabs": "PolymerElements/paper-tabs#~1.0.1",
+    "iron-pages": "PolymerElements/iron-pages#~1.0.3"
+  }
+}
