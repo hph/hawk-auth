@@ -54,8 +54,8 @@ Example:
     <paper-material elevation="1">
 
       <paper-tabs class="tab" selected="{{selected}}">
-        <paper-tab>Log in</paper-tab>
-        <paper-tab>Sign up</paper-tab>
+        <paper-tab on-tap="focus">Log in</paper-tab>
+        <paper-tab on-tap="focus">Sign up</paper-tab>
       </paper-tabs>
 
       <iron-pages class="tab" selected="{{selected}}">
@@ -69,7 +69,7 @@ Example:
             <input is="iron-input" type="password" name="password" required>
           </paper-input-container>
           <content select=".login"></content>
-          <paper-button success raised onclick="submit()">Log in</paper-button>
+          <paper-button success raised on-tap="submit">Log in</paper-button>
         </form>
 
         <form is="iron-form" method="post" action="{{signupPath}}">
@@ -82,7 +82,7 @@ Example:
             <input is="iron-input" type="password" name="{{password}}" required>
           </paper-input-container>
           <content select=".signup"></content>
-          <paper-button success raised onclick="submit()">Sign up</paper-button>
+          <paper-button success raised on-tap="submit">Sign up</paper-button>
         </form>
       </iron-pages>
 
@@ -97,11 +97,20 @@ Example:
   Polymer({
     is: 'hawk-auth',
     ready: function () {
+      _this = this;
       document.querySelector('body').addEventListener('keydown', function (event) {
         if (event.keyCode === 13) {
-          submit();
+          _this.submit();
         }
       });
+    },
+    submit: function () {
+      this.querySelector('form.iron-selected').submit();
+    },
+    focus: function () {
+      this.async(function () {
+        this.querySelector('form.iron-selected').querySelector('input').focus();
+      }, 1);
     },
     properties: {
       selected: {
@@ -122,9 +131,5 @@ Example:
       }
     }
   });
-
-  function submit () {
-    document.querySelector('form.iron-selected').submit();
-  }
 
 </script>
